@@ -8,8 +8,12 @@ import java.nio.charset.StandardCharsets
 class AbstractTest extends Specification {
     Token token
 
-    public def InputStream getInputStream(final String string) {
+    def InputStream getInputStream(final String string) {
         return new ByteArrayInputStream(string.getBytes(StandardCharsets.UTF_8));
+    }
+
+    def setNextToken(){
+        token = lexer.nextToken()
     }
 }
 

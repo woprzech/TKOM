@@ -3,5 +3,30 @@ package tkom.model;
 /**
  * Created by wprzecho on 16.05.16.
  */
-public class TokenType {
+public enum TokenType {
+    NUMBER,
+    FUNCTION,
+    IF,
+    WHILE,
+    ELSE,
+    RETURN,
+    ID,
+    LOWER,
+    LOWER_EQUALS,
+    GREATER,
+    GREATER_EQUALS,
+    PARENTHESIS_OPEN,
+    PARENTHESIS_CLOSE,
+    BRACKET_OPEN,
+    BRACKET_CLOSE,
+    EQUALS,
+    NOT_EQUALS,
+    ADD,
+    SUB,
+    MULTIPLIER,
+    DIV,
+    SEMICOLON,
+    ASSIGN,
+    QUOTATION_MARK,
+    UNDEFINED
 }
