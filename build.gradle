@@ -1,0 +1,23 @@
+group 'tkom'
+version '1.0-SNAPSHOT'
+
+
+
+repositories {
+    jcenter()
+}
+
+apply plugin: 'groovy'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    testCompile(
+            'junit:junit:4.12',
+            'org.codehaus.groovy:groovy-all:2.4.4',
+            'org.spockframework:spock-core:1.0-groovy-2.4'
+    )
+    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+
+}
