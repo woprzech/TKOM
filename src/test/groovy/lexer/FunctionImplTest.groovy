@@ -1,3 +1,5 @@
+package lexer
+
 import spock.lang.Shared
 import tkom.lexer.Lexer
 import tkom.model.TokenType
@@ -5,46 +7,46 @@ import tkom.model.TokenType
 /**
  * Created by wprzecho on 16.05.16.
  */
-class StringTypeTest extends AbstractTest {
+class FunctionImplTest extends AbstractTest {
     @Shared
     Lexer lexer
 
     def setupSpec() {
-        lexer = new Lexer(getInputStream("a = \"Wojtek\";"))
+        lexer = new Lexer(getInputStream("def() {}"))
     }
 
-    def "id"() {
+    def "function"() {
         when:
         token = lexer.nextToken()
         then:
-        token.getType() == TokenType.ID
+        token.getType() == TokenType.FUNCTION
     }
 
-    def "assign"() {
+    def "parenth open"() {
         when:
         token = lexer.nextToken()
         then:
-        token.getType() == TokenType.ASSIGN
+        token.getType() == TokenType.PARENTHESIS_OPEN
     }
 
-    def "quotation mark"() {
+    def "parenth close"() {
         when:
         token = lexer.nextToken()
         then:
-        token.getType() == TokenType.QUOTATION_MARK
+        token.getType() == TokenType.PARENTHESIS_CLOSE
     }
 
-    def "string"() {
+    def "bracket open"() {
         when:
         token = lexer.nextToken()
         then:
-        token.getType() == TokenType.ID
+        token.getType() == TokenType.BRACKET_OPEN
     }
 
-    def "quotation mark2"() {
+    def "bracket close"() {
         when:
         token = lexer.nextToken()
         then:
-        token.getType() == TokenType.QUOTATION_MARK
+        token.getType() == TokenType.BRACKET_CLOSE
     }
 }

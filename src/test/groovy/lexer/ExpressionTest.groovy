@@ -1,3 +1,4 @@
+package lexer;
 import spock.lang.Shared
 import tkom.lexer.Lexer
 import tkom.model.TokenType
@@ -5,19 +6,12 @@ import tkom.model.TokenType
 /**
  * Created by wprzecho on 16.05.16.
  */
-class ReturnStatement extends AbstractTest {
+class ExpressionTest extends AbstractTest {
     @Shared
     Lexer lexer
 
     def setupSpec() {
-        lexer = new Lexer(getInputStream("return a;"))
-    }
-
-    def "return"() {
-        when:
-        token = lexer.nextToken()
-        then:
-        token.getType() == TokenType.RETURN
+        lexer = new Lexer(getInputStream("a = 34;"))
     }
 
     def "id"() {
@@ -25,6 +19,20 @@ class ReturnStatement extends AbstractTest {
         token = lexer.nextToken()
         then:
         token.getType() == TokenType.ID
+    }
+
+    def "assign"() {
+        when:
+        token = lexer.nextToken()
+        then:
+        token.getType() == TokenType.ASSIGN
+    }
+
+    def "number"() {
+        when:
+        token = lexer.nextToken()
+        then:
+        token.getType() == TokenType.NUMBER
     }
 
     def "semicolon"() {

@@ -1,3 +1,5 @@
+package lexer
+
 import spock.lang.Shared
 import tkom.lexer.Lexer
 import tkom.model.TokenType
