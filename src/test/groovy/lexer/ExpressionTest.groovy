@@ -37,6 +37,7 @@ class ExpressionTest extends AbstractTest {
 
     def "semicolon"() {
         when:
+        lexer.nextToken();
         token = lexer.nextToken()
         then:
         token.getType() == TokenType.SEMICOLON

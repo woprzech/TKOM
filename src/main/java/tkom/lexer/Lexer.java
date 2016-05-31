@@ -14,6 +14,7 @@ public class Lexer {
 
     private InputStream inputStream;
     private char tokenChar;
+    private boolean isEndOfWork = false;
 
     public Lexer(InputStream inputStream) {
         this.inputStream = inputStream;
@@ -36,8 +37,10 @@ public class Lexer {
         if (tokenChar == 0 || Character.isSpaceChar(tokenChar))
             while (!isEndOfStream() && Character.isSpaceChar(tokenChar = getNextChar()))
                 ;
-        if (Character.isSpaceChar(tokenChar))
-            return null;
+        if (Character.isSpaceChar(tokenChar)) {
+            token.setType(TokenType.UNDEFINED);
+            return token;
+        }
         sb.append(tokenChar);
         if (Character.isDigit(tokenChar)) {
             while (Character.isDigit(tokenChar = getNextChar())) {
@@ -62,7 +65,9 @@ public class Lexer {
 
             if (operatorType != null)
                 token.setType(operatorType);
-            else
+            else if (isEndOfStream()) {
+                token.setType(TokenType.END);
+            } else
                 token.setType(TokenType.UNDEFINED);
         }
         token.setText(sb.toString());
@@ -70,7 +75,9 @@ public class Lexer {
     }
 
     private boolean isSecondCharOperatorAvailable(char firstOpChar, char secondOpChar) {
-        return secondOpChar == '=' && (firstOpChar == '<' || firstOpChar == '>' || firstOpChar == '!' || firstOpChar == '=');
+        return (secondOpChar == '=' && (firstOpChar == '<' || firstOpChar == '>' || firstOpChar == '!' || firstOpChar == '='))
+                || (firstOpChar == '&' && secondOpChar == '&')
+                || (firstOpChar == '|' && secondOpChar == '|');
     }
 
     private boolean isEndOfStream() {

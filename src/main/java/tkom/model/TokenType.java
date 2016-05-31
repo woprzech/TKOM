@@ -22,11 +22,16 @@ public enum TokenType {
     EQUALS,
     NOT_EQUALS,
     ADD,
-    SUB,
+    MINUS,
     MULTIPLIER,
     DIV,
     SEMICOLON,
     ASSIGN,
     QUOTATION_MARK,
+    COMMA,
+    AND,
+    OR,
+    NEGATION,
+    END,
     UNDEFINED
 }

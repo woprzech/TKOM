@@ -12,7 +12,7 @@ class FunctionImplTest extends AbstractTest {
     Lexer lexer
 
     def setupSpec() {
-        lexer = new Lexer(getInputStream("def() {}"))
+        lexer = new Lexer(getInputStream("def() {if(x==y){}}"))
     }
 
     def "function"() {
@@ -41,6 +41,32 @@ class FunctionImplTest extends AbstractTest {
         token = lexer.nextToken()
         then:
         token.getType() == TokenType.BRACKET_OPEN
+    }
+
+    def "condition"() {
+        when:
+        token = lexer.nextToken()
+        then:
+        token.getType() == TokenType.IF
+        setNextToken()
+        token.getType() == TokenType.PARENTHESIS_OPEN
+        setNextToken()
+        token.getType() == TokenType.ID
+        setNextToken()
+        token.getType() == TokenType.EQUALS
+        setNextToken()
+        token.getType() == TokenType.ID
+        setNextToken()
+        token.getType() == TokenType.PARENTHESIS_CLOSE
+    }
+
+    def "brackets"() {
+        when:
+        token = lexer.nextToken()
+        then:
+        token.getType() == TokenType.BRACKET_OPEN
+        setNextToken()
+        token.getType() == TokenType.BRACKET_CLOSE
     }
 
     def "bracket close"() {

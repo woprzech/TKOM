@@ -27,11 +27,15 @@ public class PredefinedTokens {
             .put("==", EQUALS)
             .put("!=", NOT_EQUALS)
             .put("+", ADD)
-            .put("-", SUB)
+            .put("-", MINUS)
             .put("*", MULTIPLIER)
             .put("/", DIV)
             .put(";", SEMICOLON)
             .put("=", ASSIGN)
+            .put(",", COMMA)
+            .put("&&", AND)
+            .put("||", OR)
+            .put("!", NEGATION)
             .put("\"", QUOTATION_MARK)
             .build();
 }
