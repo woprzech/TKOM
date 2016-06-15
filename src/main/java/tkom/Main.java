@@ -15,6 +15,6 @@ public class Main {
             System.out.println(string);
         }
         final InputStream inputStream = FileHelper.getInputStreamFromFile(args[0]);
-        final Interpreter interpreter = new Interpreter(inputStream);
+        Interpreter.exec(inputStream);
     }
 }

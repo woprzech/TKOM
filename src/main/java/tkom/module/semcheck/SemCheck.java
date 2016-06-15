@@ -27,13 +27,9 @@ public class SemCheck {
 
 
         final List<FunctionEx> functions = new LinkedList<>();
-        program.getFunctions().forEach(function -> {
-            try {
-                functions.add(checkFunction(function));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        for (final Function function : program.getFunctions()) {
+            functions.add(checkFunction(function));
+        }
         return functions;
     }
 
@@ -54,12 +50,7 @@ public class SemCheck {
 
     private void scanDefinedFunction(final Function function) throws Exception {
         if (definedFunctions.containsKey(function.getName())) {
-            try {
-                throw new Exception("Redefined function: " + function.getName());
-            } catch (Exception e) {
-                e.printStackTrace();
-                return;
-            }
+            throw new Exception("Redefined function: " + function.getName());
         }
         final FunctionEx functionEx = new FunctionEx();
         functionEx.setName(function.name);
@@ -138,14 +129,8 @@ public class SemCheck {
         } else if (Variable.equals(assignable.getType())) {
             return checkVariable(scope, (Variable) assignable);
         } else {
-            try {
-                throw new Exception("Invalid assignable value");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            throw new Exception("Invalid assignable value");
         }
-
-        return null;
     }
 
     private ExpressionEx checkExpression(final Scope scope, final Expression expr) throws Exception {

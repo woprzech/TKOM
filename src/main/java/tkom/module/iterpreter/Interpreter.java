@@ -14,12 +14,12 @@ import java.util.List;
  * Created by wprzecho on 11.06.16.
  */
 public class Interpreter {
-    private Lexer lexer;
-    private Parser parser;
-    private SemCheck semCheck;
-    private Executor executor;
+    private static Lexer lexer;
+    private static Parser parser;
+    private static SemCheck semCheck;
+    private static Executor executor;
 
-    public Interpreter(final InputStream stream) {
+    public static void exec(final InputStream stream) {
         lexer = new Lexer(stream);
         parser = new Parser(lexer);
         Program program = null;

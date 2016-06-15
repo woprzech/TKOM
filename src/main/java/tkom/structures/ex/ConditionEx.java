@@ -27,10 +27,18 @@ public class ConditionEx implements ConditionOperand {
                 }
                 break;
             case OR:
-            case AND:
                 for (final ConditionOperand operand : operands) {
                     if (operand.execute(scope, functions).isTruthy()) {
                         result.setValue(1);
+                        return result;
+                    }
+                }
+                result.setValue(0);
+                return result;
+            case AND:
+                for (final ConditionOperand operand : operands) {
+                    if (!operand.execute(scope, functions).isTruthy()) {
+                        result.setValue(0);
                         return result;
                     }
                 }

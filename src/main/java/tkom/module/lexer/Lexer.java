@@ -14,7 +14,6 @@ public class Lexer {
 
     private InputStream inputStream;
     private char tokenChar;
-    private boolean isEndOfWork = false;
     private int lineCounter = 1;
     private int charCounter = 1;
 
@@ -51,35 +50,47 @@ public class Lexer {
         }
         sb.append(tokenChar);
         if (Character.isDigit(tokenChar)) {
-            while (Character.isDigit(tokenChar = getNextChar())) {
-                sb.append(tokenChar);
-            }
-            token.setType(TokenType.NUMBER);
+            processNumber(sb, token);
         } else if (Character.isLetter(tokenChar)) {
-            while (Character.isLetter(tokenChar = getNextChar()) || Character.isDigit(tokenChar)) {
-                sb.append(tokenChar);
-            }
-            if (PredefinedTokens.KEYWORDS.containsKey(sb.toString())) {
-                token.setType(PredefinedTokens.KEYWORDS.get(sb.toString()));
-            } else {
-                token.setType(TokenType.ID);
-            }
+            processIdOrKeyWord(sb, token);
         } else {
-            if (isSecondCharOperatorAvailable(tokenChar, tokenChar = getNextChar())) {
-                sb.append(tokenChar);
-                tokenChar = getNextChar();
-            }
-            final TokenType operatorType = PredefinedTokens.OPERATORS.get(sb.toString());
-
-            if (operatorType != null)
-                token.setType(operatorType);
-            else if (isEndOfStream()) {
-                token.setType(TokenType.END);
-            } else
-                token.setType(TokenType.UNDEFINED);
+            processOperator(sb, token);
         }
         token.setText(sb.toString());
         return token;
+    }
+
+    private void processOperator(StringBuilder sb, Token token) throws Exception {
+        if (isSecondCharOperatorAvailable(tokenChar, tokenChar = getNextChar())) {
+            sb.append(tokenChar);
+            tokenChar = getNextChar();
+        }
+        final TokenType operatorType = PredefinedTokens.OPERATORS.get(sb.toString());
+
+        if (operatorType != null)
+            token.setType(operatorType);
+        else if (isEndOfStream()) {
+            token.setType(TokenType.END);
+        } else
+            token.setType(TokenType.UNDEFINED);
+    }
+
+    private void processIdOrKeyWord(StringBuilder sb, Token token) throws Exception {
+        while (Character.isLetter(tokenChar = getNextChar()) || Character.isDigit(tokenChar)) {
+            sb.append(tokenChar);
+        }
+        if (PredefinedTokens.KEYWORDS.containsKey(sb.toString())) {
+            token.setType(PredefinedTokens.KEYWORDS.get(sb.toString()));
+        } else {
+            token.setType(TokenType.ID);
+        }
+    }
+
+    private void processNumber(StringBuilder sb, Token token) throws Exception {
+        while (Character.isDigit(tokenChar = getNextChar())) {
+            sb.append(tokenChar);
+        }
+        token.setType(TokenType.NUMBER);
     }
 
     private boolean isSecondCharOperatorAvailable(char firstOpChar, char secondOpChar) {
