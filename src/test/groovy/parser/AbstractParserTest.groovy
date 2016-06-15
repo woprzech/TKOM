@@ -1,7 +1,7 @@
 package parser
 
 import spock.lang.Specification
-import tkom.parser.Parser
+import tkom.module.parser.Parser
 
 import java.nio.charset.StandardCharsets
 

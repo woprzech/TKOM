@@ -1,8 +1,8 @@
 package lexer
 
 import spock.lang.Shared
-import tkom.lexer.Lexer
-import tkom.model.TokenType
+import tkom.module.lexer.Lexer
+import tkom.structures.model.data.TokenType
 
 /**
  * Created by wprzecho on 16.05.16.

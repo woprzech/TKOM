@@ -1,9 +1,9 @@
 package lexer
 
 import spock.lang.Specification
-import tkom.lexer.Lexer
-import tkom.model.Token
-import tkom.model.TokenType
+import tkom.module.lexer.Lexer
+import tkom.structures.model.data.Token
+import tkom.structures.model.data.TokenType
 
 import java.nio.charset.StandardCharsets
 
